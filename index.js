@@ -30,7 +30,7 @@ app.use(cors())
 app.use( bodyParser.json() )
 morgan.token( 'bodydata', request => { return JSON.stringify(request.body) }  )
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :bodydata'))
-
+app.use(express.static('build'))
 app.get( '/api/persons', ( request, response ) => {
   response.json(persons)
 })
