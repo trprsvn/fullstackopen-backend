@@ -27,7 +27,7 @@ app.get('/api/persons/:id', (request, response, next) => {
       if(person) {
         response.json(person.toJSON())
       } else {
-        response.status(404).send({result: "none"})
+        response.status(404).send({ result: 'none' })
       }
     })
     .catch(error => next(error))
@@ -39,7 +39,7 @@ app.get('/info', (request, response) => {
       response.send(
         `<p>Phonebook has info for ${persons.length} people</p>
         <p>${new Date()}</p>`
-        )
+      )
     })
 })
 
@@ -52,7 +52,7 @@ app.put('/api/persons/:id', (request, response, next) => {
       }
       console.log(person)
 
-      Person.findByIdAndUpdate(request.params.id, person, {new: true, runValidators: true})
+      Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true })
         .then(updatedPerson => {
           response.json(updatedPerson.toJSON())
         })
@@ -84,17 +84,17 @@ app.post('/api/persons', (request, response, next) => {
 })
 
 const notFound = ( request, response) => {
-  response.status(404).send({error: 'could find any route'})
+  response.status(404).send({ error: 'could find any route' })
 }
 
 app.use(notFound)
 
 const errorHandler = (error, request, response, next) => {
   console.log(error.message)
-  if(error.name === "CastError" && error.kind === "ObjectId") {
-    response.status(400).send({'error': "Problem with id"})
-  } else if (error.name === "ValidationError") {
-    response.status(400).json({error: error.message})
+  if(error.name === 'CastError' && error.kind === 'ObjectId') {
+    response.status(400).send({ 'error': 'Problem with id' })
+  } else if (error.name === 'ValidationError') {
+    response.status(400).json({ error: error.message })
   }
   next(error)
 }
